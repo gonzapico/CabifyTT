@@ -1,6 +1,5 @@
 package xyz.gonzapico.data;
 
-import com.elconfidencial.app.BuildConfig;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
@@ -11,4 +10,5 @@ import org.robolectric.annotation.Config;
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, application = ApplicationStub.class, sdk = 18)
-public abstract class ApplicationTestCase {}
+public abstract class ApplicationTestCase {
+}

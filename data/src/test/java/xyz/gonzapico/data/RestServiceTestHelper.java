@@ -1,4 +1,4 @@
-package za.co.riggaroo.retrofittestexample;
+package xyz.gonzapico.data;
 
 import android.content.Context;
 
