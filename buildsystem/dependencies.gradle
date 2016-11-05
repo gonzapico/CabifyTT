@@ -53,8 +53,10 @@ ext {
                       okHttpLogging     : "com.squareup.okhttp3:logging-interceptor:${loggingInterceptorVersion}",
                       glassfishJavax    : "org.glassfish:javax.annotation:${javaxGlassfish}"]
 
-  dataTestDependencies = [junit        : "junit:junit:${jUnitVersion}",
-                          assertj      : "org.assertj:assertj-core:${assertJVersion}",
-                          mockito      : "org.mockito:mockito-core:${mockitoVersion}",
-                          robolectric  : "org.robolectric:robolectric:${robolectricVersion}"]
+  dataTestDependencies = [junit      : "junit:junit:${jUnitVersion}",
+                          assertj    : "org.assertj:assertj-core:${assertJVersion}",
+                          mockito    : "org.mockito:mockito-core:${mockitoVersion}",
+                          robolectric: "org.robolectric:robolectric:${robolectricVersion}"]
+
+  domainDependencies = [rxJava: "io.reactivex:rxjava:${rxJavaVersion}"]
 }
