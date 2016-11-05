@@ -1,8 +1,13 @@
 package xyz.gonzapico.data.repository;
 
+import java.util.List;
 import javax.inject.Inject;
+import rx.Observable;
 import xyz.gonzapico.data.entity.mapper.EstimateDataMapper;
+import xyz.gonzapico.data.repository.datasource.EstimateDataStore;
 import xyz.gonzapico.data.repository.datasource.EstimateDataStoreFactory;
+import xyz.gonzapico.domain.model.DomainModelBodyRequestStops;
+import xyz.gonzapico.domain.model.DomainModelEstimateVehicle;
 import xyz.gonzapico.domain.repository.EstimateDomainRepository;
 
 /**
@@ -20,7 +25,15 @@ public class EstimateRepository implements EstimateDomainRepository {
     this.estimateDataMapper = estimateDataMapper;
   }
 
-  @Override public void getEstimationVehicelList() {
-
+  @Override public Observable<List<DomainModelEstimateVehicle>> getEstimationVehicleList(
+      DomainModelBodyRequestStops bodyRequest) {
+    /**
+     * First of all we need to transform the {@link url} of the new to let the app knows what type of new has to request to the API
+     */
+    final EstimateDataStore estimateDataStore =
+        this.estimateDataStoreFactory.createCloudDataStore();
+    return estimateDataStore.estimationVehicleList(
+        estimateDataMapper.transformToDataBodyRequest(bodyRequest))
+        .map(listResponse -> this.estimateDataMapper.transformToDomainVehicleList(listResponse));
   }
 }
