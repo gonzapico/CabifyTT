@@ -7,9 +7,9 @@ import javax.annotation.Generated;
 public class EstimateVehicle {
 
   private VehicleType vehicleType;
-  private Object totalPrice;
-  private Object currency;
-  private Object currencySymbol;
+  private long totalPrice;
+  private String currency;
+  private String currencySymbol;
   private String priceFormatted;
 
   /**
@@ -35,7 +35,7 @@ public class EstimateVehicle {
    * @return
    *     The totalPrice
    */
-  public Object getTotalPrice() {
+  public long getTotalPrice() {
     return totalPrice;
   }
 
@@ -44,7 +44,7 @@ public class EstimateVehicle {
    * @param totalPrice
    *     The total_price
    */
-  public void setTotalPrice(Object totalPrice) {
+  public void setTotalPrice(long totalPrice) {
     this.totalPrice = totalPrice;
   }
 
@@ -53,7 +53,7 @@ public class EstimateVehicle {
    * @return
    *     The currency
    */
-  public Object getCurrency() {
+  public String getCurrency() {
     return currency;
   }
 
@@ -62,7 +62,7 @@ public class EstimateVehicle {
    * @param currency
    *     The currency
    */
-  public void setCurrency(Object currency) {
+  public void setCurrency(String currency) {
     this.currency = currency;
   }
 
@@ -71,7 +71,7 @@ public class EstimateVehicle {
    * @return
    *     The currencySymbol
    */
-  public Object getCurrencySymbol() {
+  public String getCurrencySymbol() {
     return currencySymbol;
   }
 
@@ -80,7 +80,7 @@ public class EstimateVehicle {
    * @param currencySymbol
    *     The currency_symbol
    */
-  public void setCurrencySymbol(Object currencySymbol) {
+  public void setCurrencySymbol(String currencySymbol) {
     this.currencySymbol = currencySymbol;
   }
 
