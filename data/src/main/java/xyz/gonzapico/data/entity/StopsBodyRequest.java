@@ -1,20 +1,16 @@
+
 package xyz.gonzapico.data.entity;
 
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.RequestBody;
-import java.io.IOException;
-import okio.BufferedSink;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Generated;
 
-/**
- * Created by gfernandez on 2/11/16.
- */
+@Generated("org.jsonschema2pojo")
+public class StopsBodyRequest {
 
-public class StopsBodyRequest extends RequestBody{
-  @Override public MediaType contentType() {
-    return null;
-  }
+    public List<Stop> stops = new ArrayList<Stop>();
+    public String startAt;
 
-  @Override public void writeTo(BufferedSink sink) throws IOException {
 
-  }
+
 }
