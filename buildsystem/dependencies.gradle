@@ -58,5 +58,8 @@ ext {
                           mockito    : "org.mockito:mockito-core:${mockitoVersion}",
                           robolectric: "org.robolectric:robolectric:${robolectricVersion}"]
 
-  domainDependencies = [rxJava: "io.reactivex:rxjava:${rxJavaVersion}"]
+  domainDependencies = [rxJava         : "io.reactivex:rxjava:${rxJavaVersion}",
+                        dagger         : "com.google.dagger:dagger:${daggerVersion}",
+                        javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+                        daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}"]
 }
