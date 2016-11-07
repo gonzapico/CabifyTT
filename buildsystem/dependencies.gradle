@@ -62,4 +62,7 @@ ext {
                         dagger         : "com.google.dagger:dagger:${daggerVersion}",
                         javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
                         daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}"]
+
+  domainTestDependencies = [junit      : "junit:junit:${jUnitVersion}",
+                            mockito    : "org.mockito:mockito-core:${mockitoVersion}"]
 }
