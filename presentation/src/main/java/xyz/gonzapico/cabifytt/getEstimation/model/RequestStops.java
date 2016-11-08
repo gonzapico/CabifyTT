@@ -1,4 +1,4 @@
-package xyz.gonzapico.cabifytt.getEstimation;
+package xyz.gonzapico.cabifytt.getEstimation.model;
 
 import java.util.ArrayList;
 import java.util.List;

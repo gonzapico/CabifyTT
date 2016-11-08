@@ -1,4 +1,4 @@
-package xyz.gonzapico.cabifytt.getEstimation;
+package xyz.gonzapico.cabifytt.getEstimation.model;
 
 /**
  * Created by gfernandez on 8/11/16.

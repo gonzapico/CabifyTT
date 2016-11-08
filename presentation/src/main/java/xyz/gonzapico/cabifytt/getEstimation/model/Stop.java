@@ -1,7 +1,8 @@
-package xyz.gonzapico.cabifytt.getEstimation;
+package xyz.gonzapico.cabifytt.getEstimation.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import xyz.gonzapico.cabifytt.getEstimation.model.Location;
 
 /**
  * Created by gfernandez on 8/11/16.
