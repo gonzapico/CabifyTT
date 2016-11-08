@@ -1,22 +1,16 @@
 package xyz.gonzapico.cabifytt.di.components;
 
-import com.elconfidencial.app.ShowBlogFragment;
-import com.elconfidencial.app.ShowNewFragment;
-import com.elconfidencial.app.ShowNewsFragment;
-import com.elconfidencial.app.di.PerActivity;
-import com.elconfidencial.app.di.modules.ActivityModule;
-import com.elconfidencial.app.di.modules.NewModule;
 import dagger.Component;
+import xyz.gonzapico.cabifytt.PickActivity;
+import xyz.gonzapico.cabifytt.di.PerActivity;
+import xyz.gonzapico.cabifytt.di.modules.ActivityModule;
+import xyz.gonzapico.cabifytt.di.modules.EstimationModule;
 
 /**
  * Created by gfernandez on 31/10/16.
  */
 @PerActivity @Component(dependencies = ApplicationComponent.class, modules = {
-    ActivityModule.class, NewModule.class
+    ActivityModule.class, EstimationModule.class
 }) public interface EstimationComponent extends ActivityComponent {
-  void inject(ShowNewFragment showNewFragment);
-
-  void inject(ShowNewsFragment showNewsFragment);
-
-  void inject(ShowBlogFragment showBlogFragment);
+  void inject(PickActivity pickActivity);
 }
