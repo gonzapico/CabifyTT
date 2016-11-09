@@ -22,8 +22,10 @@ import javax.inject.Singleton;
 import xyz.gonzapico.cabifytt.BaseApplication;
 import xyz.gonzapico.cabifytt.UIThread;
 import xyz.gonzapico.data.executor.JobExecutor;
+import xyz.gonzapico.data.repository.EstimateRepository;
 import xyz.gonzapico.domain.executor.PostExecutionThread;
 import xyz.gonzapico.domain.executor.ThreadExecutor;
+import xyz.gonzapico.domain.repository.EstimateDomainRepository;
 
 /**
  * Dagger module that provides objects which will live during the application lifecycle.
@@ -45,5 +47,10 @@ import xyz.gonzapico.domain.executor.ThreadExecutor;
 
   @Provides @Singleton PostExecutionThread providePostExecutionThread(UIThread uiThread) {
     return uiThread;
+  }
+
+  @Provides @Singleton EstimateDomainRepository provideEstimateDomainRepository(
+      EstimateRepository estimateRepository) {
+    return estimateRepository;
   }
 }
