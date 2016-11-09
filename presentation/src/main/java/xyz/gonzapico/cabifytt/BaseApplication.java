@@ -3,6 +3,7 @@ package xyz.gonzapico.cabifytt;
 import android.app.Application;
 import android.os.StrictMode;
 import xyz.gonzapico.cabifytt.di.components.ApplicationComponent;
+import xyz.gonzapico.cabifytt.di.components.DaggerApplicationComponent;
 import xyz.gonzapico.cabifytt.di.modules.ApplicationModule;
 
 /**
