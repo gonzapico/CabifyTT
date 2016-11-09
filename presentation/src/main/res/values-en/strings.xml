@@ -2,4 +2,5 @@
   <string name="app_name">CabifyTT</string>
   <string name="pick_start">Start</string>
   <string name="pick_end">End</string>
+  <string name="pick_search">Search</string>
 </resources>
