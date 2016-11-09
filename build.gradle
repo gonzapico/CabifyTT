@@ -18,7 +18,7 @@ task wrapper(type: Wrapper) {
 
 allprojects {
     ext {
-        androidApplicationId = 'xyz.gonzapico.cabify'
+        androidApplicationId = 'xyz.gonzapico.cabifytt'
         androidVersionCode = 1
         androidVersionName = "0.1"
 
