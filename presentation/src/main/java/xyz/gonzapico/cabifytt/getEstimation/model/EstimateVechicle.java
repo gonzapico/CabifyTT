@@ -1,24 +1,22 @@
 package xyz.gonzapico.cabifytt.getEstimation.model;
 
-import xyz.gonzapico.data.entity.VehicleType;
-
 /**
  * Created by gfernandez on 8/11/16.
  */
 
 public class EstimateVechicle {
 
-  private xyz.gonzapico.data.entity.VehicleType vehicleType;
+  private xyz.gonzapico.cabifytt.getEstimation.model.VehicleType vehicleType;
   private long totalPrice;
   private String currency;
   private String currencySymbol;
   private String priceFormatted;
 
-  public VehicleType getVehicleType() {
+  public xyz.gonzapico.cabifytt.getEstimation.model.VehicleType getVehicleType() {
     return vehicleType;
   }
 
-  public void setVehicleType(VehicleType vehicleType) {
+  public void setVehicleType(xyz.gonzapico.cabifytt.getEstimation.model.VehicleType vehicleType) {
     this.vehicleType = vehicleType;
   }
 

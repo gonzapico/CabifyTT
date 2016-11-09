@@ -27,4 +27,8 @@ public class RequestStops {
   public void setStartAt(String startAt) {
     this.startAt = startAt;
   }
+
+  public void addStop(Stop stop) {
+    stops.add(stop);
+  }
 }

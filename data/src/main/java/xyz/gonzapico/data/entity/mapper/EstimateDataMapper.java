@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import retrofit2.Response;
 import xyz.gonzapico.data.entity.EstimateVehicle;
-import xyz.gonzapico.data.entity.Icons;
 import xyz.gonzapico.data.entity.Stop;
 import xyz.gonzapico.data.entity.StopsBodyRequest;
 import xyz.gonzapico.data.entity.VehicleType;
@@ -44,32 +43,30 @@ import xyz.gonzapico.domain.model.DomainVehicleType;
   private Stop transformStop(DomainModelStop domainModelStop) {
     Stop stopResult = new Stop();
 
-    stopResult.loc = transformLocation(domainModelStop.getLocationList());
+    stopResult.loc = domainModelStop.getLocationList();
+    stopResult.addr = domainModelStop.getAddr();
+    stopResult.city = domainModelStop.getCity();
+    stopResult.country = domainModelStop.getCountry();
+    stopResult.hit_at = domainModelStop.getHitAt();
+    stopResult.name = domainModelStop.getName();
+    stopResult.num = domainModelStop.getNum();
 
     return stopResult;
-  }
-
-  private List<Long> transformLocation(List<DomainModelLocation> locationList) {
-    List<Long> floatListResult = new ArrayList<>();
-    for (DomainModelLocation domainModelLocation : locationList) {
-      floatListResult.add(domainModelLocation.getLatitude());
-    }
-
-    return floatListResult;
   }
 
   public List<DomainModelEstimateVehicle> transformToDomainVehicleList(
       Response<List<EstimateVehicle>> listResponse) {
     List<DomainModelEstimateVehicle> resultOfTransformation = new ArrayList<>();
 
-    for (EstimateVehicle estimateVehicle : listResponse.body()){
+    for (EstimateVehicle estimateVehicle : listResponse.body()) {
       DomainModelEstimateVehicle domainModelEstimateVehicle = new DomainModelEstimateVehicle();
 
       domainModelEstimateVehicle.setCurrency(estimateVehicle.getCurrency());
       domainModelEstimateVehicle.setCurrencySymbol(estimateVehicle.getCurrencySymbol());
       domainModelEstimateVehicle.setPriceFormatted(estimateVehicle.getPriceFormatted());
       domainModelEstimateVehicle.setTotalPrice(estimateVehicle.getTotalPrice());
-      domainModelEstimateVehicle.setVehicleType(transformVehicleType(estimateVehicle.getVehicleType()));
+      domainModelEstimateVehicle.setVehicleType(
+          transformVehicleType(estimateVehicle.getVehicleType()));
       resultOfTransformation.add(domainModelEstimateVehicle);
     }
 

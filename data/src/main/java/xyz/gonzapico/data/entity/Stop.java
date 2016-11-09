@@ -6,5 +6,11 @@ import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo") public class Stop {
 
-  public List<Long> loc = new ArrayList<>();
+  public List<Double> loc = new ArrayList<>();
+  public String name = "";
+  public String addr = "";
+  public String num = "";
+  public String city = "";
+  public String country = "";
+  public String hit_at = "";
 }
