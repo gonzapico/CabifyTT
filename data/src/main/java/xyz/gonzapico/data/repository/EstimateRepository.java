@@ -3,6 +3,7 @@ package xyz.gonzapico.data.repository;
 import java.util.List;
 import javax.inject.Inject;
 import rx.Observable;
+import rx.exceptions.Exceptions;
 import xyz.gonzapico.data.entity.mapper.EstimateDataMapper;
 import xyz.gonzapico.data.repository.datasource.EstimateDataStore;
 import xyz.gonzapico.data.repository.datasource.EstimateDataStoreFactory;
@@ -33,7 +34,12 @@ public class EstimateRepository implements EstimateDomainRepository {
     final EstimateDataStore estimateDataStore =
         this.estimateDataStoreFactory.createCloudDataStore();
     return estimateDataStore.estimationVehicleList(
-        estimateDataMapper.transformToDataBodyRequest(bodyRequest))
-        .map(listResponse -> this.estimateDataMapper.transformToDomainVehicleList(listResponse));
+        estimateDataMapper.transformToDataBodyRequest(bodyRequest)).map(listResponse -> {
+      try {
+        return this.estimateDataMapper.transformToDomainVehicleList(listResponse);
+      } catch (Throwable throwable) {
+        throw Exceptions.propagate(throwable);
+      }
+    });
   }
 }

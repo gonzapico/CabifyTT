@@ -9,6 +9,7 @@ import xyz.gonzapico.data.entity.EstimateVehicle;
 import xyz.gonzapico.data.entity.Stop;
 import xyz.gonzapico.data.entity.StopsBodyRequest;
 import xyz.gonzapico.data.entity.VehicleType;
+import xyz.gonzapico.data.exception.ResponseIncorrectException;
 import xyz.gonzapico.domain.model.DomainModelBodyRequestStops;
 import xyz.gonzapico.domain.model.DomainModelEstimateVehicle;
 import xyz.gonzapico.domain.model.DomainModelLocation;
@@ -55,19 +56,21 @@ import xyz.gonzapico.domain.model.DomainVehicleType;
   }
 
   public List<DomainModelEstimateVehicle> transformToDomainVehicleList(
-      Response<List<EstimateVehicle>> listResponse) {
+      Response<List<EstimateVehicle>> listResponse) throws ResponseIncorrectException {
     List<DomainModelEstimateVehicle> resultOfTransformation = new ArrayList<>();
+    if (listResponse.isSuccessful()) {
+      for (EstimateVehicle estimateVehicle : listResponse.body()) {
+        DomainModelEstimateVehicle domainModelEstimateVehicle = new DomainModelEstimateVehicle();
 
-    for (EstimateVehicle estimateVehicle : listResponse.body()) {
-      DomainModelEstimateVehicle domainModelEstimateVehicle = new DomainModelEstimateVehicle();
-
-      domainModelEstimateVehicle.setCurrency(estimateVehicle.getCurrency());
-      domainModelEstimateVehicle.setCurrencySymbol(estimateVehicle.getCurrencySymbol());
-      domainModelEstimateVehicle.setPriceFormatted(estimateVehicle.getPriceFormatted());
-      domainModelEstimateVehicle.setTotalPrice(estimateVehicle.getTotalPrice());
-      domainModelEstimateVehicle.setVehicleType(
-          transformVehicleType(estimateVehicle.getVehicleType()));
-      resultOfTransformation.add(domainModelEstimateVehicle);
+        domainModelEstimateVehicle.setCurrency(estimateVehicle.getCurrency());
+        domainModelEstimateVehicle.setCurrencySymbol(estimateVehicle.getCurrencySymbol());
+        domainModelEstimateVehicle.setPriceFormatted(estimateVehicle.getPriceFormatted());
+        domainModelEstimateVehicle.setTotalPrice(estimateVehicle.getTotalPrice());
+        domainModelEstimateVehicle.setVehicleType(transformVehicleType(estimateVehicle.getVehicleType()));
+        resultOfTransformation.add(domainModelEstimateVehicle);
+      }
+    } else {
+      throw new ResponseIncorrectException(listResponse.errorBody().toString());
     }
 
     return resultOfTransformation;
@@ -76,7 +79,6 @@ import xyz.gonzapico.domain.model.DomainVehicleType;
   private DomainVehicleType transformVehicleType(VehicleType vehicleType) {
     DomainVehicleType resultOfTransformation = new DomainVehicleType();
 
-    // TODO left fields
     if (vehicleType != null) {
       resultOfTransformation.setCurrency(vehicleType.getCurrency());
       resultOfTransformation.setAsapOnly(vehicleType.getAsapOnly());
