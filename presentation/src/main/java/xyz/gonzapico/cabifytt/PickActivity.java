@@ -2,8 +2,12 @@ package xyz.gonzapico.cabifytt;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
@@ -21,12 +25,14 @@ import javax.inject.Inject;
 import xyz.gonzapico.cabifytt.di.HasComponent;
 import xyz.gonzapico.cabifytt.di.components.DaggerEstimationComponent;
 import xyz.gonzapico.cabifytt.di.components.EstimationComponent;
+import xyz.gonzapico.cabifytt.getEstimation.EstimationView;
 import xyz.gonzapico.cabifytt.getEstimation.GetEstimationPresenter;
-import xyz.gonzapico.cabifytt.getEstimation.model.Location;
+import xyz.gonzapico.cabifytt.getEstimation.model.EstimateVechicle;
 import xyz.gonzapico.cabifytt.getEstimation.model.RequestStops;
 import xyz.gonzapico.cabifytt.getEstimation.model.Stop;
 
-public class PickActivity extends BaseActivity implements HasComponent<EstimationComponent> {
+public class PickActivity extends BaseActivity
+    implements HasComponent<EstimationComponent>, EstimationView {
   private final String TAG = "PickActivity";
   private final int PLACE_AUTOCOMPLETE_REQUEST_CODE_START = 1;
   private final int PLACE_AUTOCOMPLETE_REQUEST_CODE_END = 2;
@@ -35,9 +41,17 @@ public class PickActivity extends BaseActivity implements HasComponent<Estimatio
   @Inject GetEstimationPresenter mGetEstimationPresenter;
   RequestStops requestStops = new RequestStops();
   List<Stop> stopList = new ArrayList<>();
+  @BindView(R.id.llGlobalPick) LinearLayout llGlobalPick;
+  @BindView(R.id.pbLoading) ProgressBar pbLoading;
   private boolean suggestedStartSearch = false;
   private boolean suggestedEndSearch = false;
   private EstimationComponent mEstimationComponent;
+
+  @OnClick(R.id.btSearch) void estimate() {
+    if ((requestStops.getStops().get(0) != null) && (requestStops.getStops().get(1) != null)) {
+      getEstimation(requestStops);
+    }
+  }
 
   @OnFocusChange(R.id.etStart) void suggestStartSearch() {
     if (!suggestedStartSearch) {
@@ -80,6 +94,7 @@ public class PickActivity extends BaseActivity implements HasComponent<Estimatio
     initializeInjector();
 
     this.getComponent().inject(this);
+    mGetEstimationPresenter.setEstimationView(this);
   }
 
   private void initializeInjector() {
@@ -101,14 +116,14 @@ public class PickActivity extends BaseActivity implements HasComponent<Estimatio
       Date d = null;
       try {
         d = dataFormat.parse("2018-08-09 11:15");//catch exception
+        d = new Date();
       } catch (ParseException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
       try {
         currentDateFormatted = dataFormat.format(d);
-      }
-      catch (Exception e){
+      } catch (Exception e) {
         currentDateFormatted = dataFormat.format(new Date());
       }
       requestStops.setStartAt(currentDateFormatted);
@@ -127,7 +142,11 @@ public class PickActivity extends BaseActivity implements HasComponent<Estimatio
           try {
             start.setCity(partsOfAddress[partsOfAddress.length - 2].trim().split(" ")[1]);
           } catch (Exception e) {
-            start.setCity(partsOfAddress[partsOfAddress.length - 2].trim().split(" ")[0]);
+            try {
+              start.setCity(partsOfAddress[partsOfAddress.length - 2].trim().split(" ")[0]);
+            } catch (Exception exc) {
+              start.setCity("");
+            }
           }
           String num = "";
           try {
@@ -137,7 +156,11 @@ public class PickActivity extends BaseActivity implements HasComponent<Estimatio
             num = "S/N";
           }
           start.setNum(num);
-          start.setCountry(partsOfAddress[partsOfAddress.length - 1].split(" ")[1]);
+          try {
+            start.setCountry(partsOfAddress[partsOfAddress.length - 1].split(" ")[1]);
+          } catch (IndexOutOfBoundsException e) {
+            start.setCountry(partsOfAddress[partsOfAddress.length - 1].split(" ")[0]);
+          }
 
           stopList.add(start);
 
@@ -162,7 +185,11 @@ public class PickActivity extends BaseActivity implements HasComponent<Estimatio
           try {
             end.setCity(partsOfAddressEnd[partsOfAddressEnd.length - 2].trim().split(" ")[1]);
           } catch (Exception e) {
-            end.setCity(partsOfAddressEnd[partsOfAddressEnd.length - 2].trim().split(" ")[0]);
+            try {
+              end.setCity(partsOfAddressEnd[partsOfAddressEnd.length - 2].trim().split(" ")[0]);
+            } catch (Exception exc) {
+              end.setCity("");
+            }
           }
           String numEnd = "";
           try {
@@ -172,15 +199,15 @@ public class PickActivity extends BaseActivity implements HasComponent<Estimatio
             numEnd = "S/N";
           }
           end.setNum(numEnd);
-          end.setCountry(partsOfAddressEnd[partsOfAddressEnd.length - 1].split(" ")[1]);
+          try {
+            end.setCountry(partsOfAddressEnd[partsOfAddressEnd.length - 1].split(" ")[1]);
+          } catch (IndexOutOfBoundsException e) {
+            end.setCountry(partsOfAddressEnd[partsOfAddressEnd.length - 1].split(" ")[0]);
+          }
 
           stopList.add(end);
           etEnd.setText(place.getName());
           requestStops.setStops(stopList);
-          if ((requestStops.getStops().get(0) != null) && (requestStops.getStops().get(1)
-              != null)) {
-            getEstimation(requestStops);
-          }
           break;
       }
     } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
@@ -198,5 +225,22 @@ public class PickActivity extends BaseActivity implements HasComponent<Estimatio
 
   @Override public EstimationComponent getComponent() {
     return mEstimationComponent;
+  }
+
+  @Override public void showLoading() {
+    pbLoading.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void hideLoading() {
+
+    pbLoading.setVisibility(View.GONE);
+  }
+
+  @Override public void renderResults(List<EstimateVechicle> listOfVehicles) {
+
+  }
+
+  @Override public void showError(String errorMessage) {
+    Snackbar.make(llGlobalPick, errorMessage, Snackbar.LENGTH_LONG).show();
   }
 }
