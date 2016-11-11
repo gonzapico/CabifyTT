@@ -30,14 +30,15 @@ import xyz.gonzapico.domain.model.DomainModelEstimateVehicle;
     this.mDomainEstimationMapper = domainFrontPageNewsMapper;
   }
 
-  public void setView(EstimationView estimationView) {
+  public void setEstimationView(EstimationView estimationView) {
     mEstimationView = estimationView;
   }
 
   public void getEstimation(RequestStops stopsRequested) {
+    GetEstimationPresenter.this.mEstimationView.showLoading();
     try {
       ((GetEstimation) this.mGetEstimationUseCase).setBodyRequestStops(this.mDomainEstimationMapper.trasnformToBodyRequest(stopsRequested));
-      this.mGetEstimationUseCase.execute(new NewsSuscriber());
+      this.mGetEstimationUseCase.execute(new EstimationSuscriber());
     } catch (Exception e) {
       GetEstimationPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
     }
@@ -61,12 +62,14 @@ import xyz.gonzapico.domain.model.DomainModelEstimateVehicle;
     mEstimationView.showError(defaultErrorBundle.getErrorMessage());
   }
 
-  private final class NewsSuscriber extends DefaultSubscriber<List<DomainModelEstimateVehicle>> {
+  private final class EstimationSuscriber extends DefaultSubscriber<List<DomainModelEstimateVehicle>> {
 
     @Override public void onCompleted() {
+      GetEstimationPresenter.this.mEstimationView.hideLoading();
     }
 
     @Override public void onError(Throwable e) {
+      GetEstimationPresenter.this.mEstimationView.hideLoading();
       GetEstimationPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
     }
 
