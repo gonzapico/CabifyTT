@@ -39,6 +39,9 @@ ext {
   // Support
   supportVersion = '24.1.1'
 
+  // Places
+  placesAPIversion = '9.6.1'
+
   dataDependencies = [retrofit          : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
                       retrofitConverter : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
                       daggerCompiler    : "com.google.dagger:dagger-compiler:${daggerVersion}",
@@ -63,8 +66,8 @@ ext {
                         javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
                         daggerCompiler : "com.google.dagger:dagger-compiler:${daggerVersion}"]
 
-  domainTestDependencies = [junit      : "junit:junit:${jUnitVersion}",
-                            mockito    : "org.mockito:mockito-core:${mockitoVersion}"]
+  domainTestDependencies = [junit  : "junit:junit:${jUnitVersion}",
+                            mockito: "org.mockito:mockito-core:${mockitoVersion}"]
 
   presentationDependencies =
       [supportAppCompatV7 : "com.android.support:appcompat-v7:${supportVersion}",
@@ -77,5 +80,6 @@ ext {
        javaxAnnotation    : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
        javaxGlassfish     : "org.glassfish:javax.annotation:${javaxGlassfish}",
        rxAndroid          : "io.reactivex:rxandroid:${rxAndroidVersion}",
-       glide              : "com.github.bumptech.glide:glide:${glideVersion}"]
+       glide              : "com.github.bumptech.glide:glide:${glideVersion}",
+       places             : "com.google.android.gms:play-services-places:${placesAPIversion}"]
 }
