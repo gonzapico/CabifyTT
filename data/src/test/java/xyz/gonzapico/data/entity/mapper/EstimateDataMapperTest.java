@@ -8,6 +8,7 @@ import retrofit2.Response;
 import xyz.gonzapico.data.ApplicationTestCase;
 import xyz.gonzapico.data.entity.EstimateVehicle;
 import xyz.gonzapico.data.entity.VehicleType;
+import xyz.gonzapico.data.exception.ResponseIncorrectException;
 import xyz.gonzapico.domain.model.DomainModelEstimateVehicle;
 import xyz.gonzapico.domain.model.DomainVehicleType;
 
@@ -45,7 +46,7 @@ public class EstimateDataMapperTest extends ApplicationTestCase {
 
   }
 
-  @Test public void transformToDomainVehicleList() {
+  @Test public void transformToDomainVehicleList() throws ResponseIncorrectException {
     Response<List<EstimateVehicle>> fakeEstimateVehicleAPIResponse =
         createFakeEntityListEstimateVehicle();
 
