@@ -3,14 +3,18 @@ package xyz.gonzapico.cabifytt;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
+import butterknife.OnTextChanged;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
@@ -27,6 +31,7 @@ import xyz.gonzapico.cabifytt.di.components.DaggerEstimationComponent;
 import xyz.gonzapico.cabifytt.di.components.EstimationComponent;
 import xyz.gonzapico.cabifytt.getEstimation.EstimationView;
 import xyz.gonzapico.cabifytt.getEstimation.GetEstimationPresenter;
+import xyz.gonzapico.cabifytt.getEstimation.adapter.VehicleTypeResultAdapter;
 import xyz.gonzapico.cabifytt.getEstimation.model.EstimateVechicle;
 import xyz.gonzapico.cabifytt.getEstimation.model.RequestStops;
 import xyz.gonzapico.cabifytt.getEstimation.model.Stop;
@@ -43,17 +48,27 @@ public class PickActivity extends BaseActivity
   List<Stop> stopList = new ArrayList<>();
   @BindView(R.id.llGlobalPick) LinearLayout llGlobalPick;
   @BindView(R.id.pbLoading) ProgressBar pbLoading;
+  @BindView(R.id.rvEstimateVehicles) RecyclerView rvEstimateVehicles;
+  @BindView(R.id.btSort) Button btSort;
   private boolean suggestedStartSearch = false;
   private boolean suggestedEndSearch = false;
   private EstimationComponent mEstimationComponent;
 
   @OnClick(R.id.btSearch) void estimate() {
+    if (requestStops.getStops().size() < 2) {
+      showError("Debe seleccionar origen y destino debidamente");
+      return;
+    }
     if ((requestStops.getStops().get(0) != null) && (requestStops.getStops().get(1) != null)) {
       getEstimation(requestStops);
     }
   }
 
-  @OnFocusChange(R.id.etStart) void suggestStartSearch() {
+  @OnClick(R.id.btSort) void sortBy() {
+    mGetEstimationPresenter.orderByPrice();
+  }
+
+  @OnTextChanged(R.id.etStart) void suggestStartSearch() {
     if (!suggestedStartSearch) {
       try {
         Intent intent =
@@ -85,10 +100,6 @@ public class PickActivity extends BaseActivity
     }
   }
 
-  @OnClick(R.id.btSearch) void search() {
-
-  }
-
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     initializeInjector();
@@ -116,7 +127,7 @@ public class PickActivity extends BaseActivity
       Date d = null;
       try {
         d = dataFormat.parse("2018-08-09 11:15");//catch exception
-        d = new Date();
+        //d = new Date();
       } catch (ParseException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -237,7 +248,12 @@ public class PickActivity extends BaseActivity
   }
 
   @Override public void renderResults(List<EstimateVechicle> listOfVehicles) {
-
+    rvEstimateVehicles.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+    VehicleTypeResultAdapter adapterEstimateVehicles =
+        new VehicleTypeResultAdapter(this, listOfVehicles);
+    rvEstimateVehicles.setAdapter(adapterEstimateVehicles);
+    adapterEstimateVehicles.notifyDataSetChanged();
+    btSort.setVisibility(View.VISIBLE);
   }
 
   @Override public void showError(String errorMessage) {
