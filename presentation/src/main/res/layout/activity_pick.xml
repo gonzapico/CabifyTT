@@ -44,6 +44,12 @@
       android:id="@+id/btSearch" android:layout_width="wrap_content"
       android:layout_height="wrap_content" android:text="@string/pick_search"/>
 
+  <Button
+      android:layout_gravity="center"
+      android:visibility="gone"
+      android:id="@+id/btSort" android:layout_width="wrap_content"
+      android:layout_height="wrap_content" android:text="Ordenar"/>
+
   <ProgressBar
       android:id="@+id/pbLoading"
       style="@android:style/Widget.ProgressBar.Large"
