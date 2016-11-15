@@ -64,26 +64,10 @@ import xyz.gonzapico.data.cloud.CabifyAPI;
     OkHttpClient.Builder client = new OkHttpClient.Builder();
 
     // Logging porpouses
-    HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-    logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-    client.addInterceptor(logging);
-    client.networkInterceptors().add(new Interceptor() {
-      @Override public Response intercept(Chain chain) throws IOException {
-        Response originalResponse = chain.proceed(chain.request());
-        if (isThereInternetConnection()) {
-          int maxAge = 60; // read from cache for 1 minute
-          return originalResponse.newBuilder()
-              .header("Cache-Control", "public, max-age=" + maxAge)
-              .build();
-        } else {
-          int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
-          return originalResponse.newBuilder()
-              .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-              .build();
-        }
-      }
-    });
-    client.cache(cache);
+    //HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+    //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+    //client.addInterceptor(logging);
+    //client.cache(cache);
     return client;
   }
 
