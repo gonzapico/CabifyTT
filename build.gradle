@@ -1,0 +1,28 @@
+apply from: 'buildsystem/dependencies.gradle'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2.0'
+}
+
+allprojects {
+    ext {
+        androidApplicationId = 'xyz.gonzapico.cabifytt'
+        androidVersionCode = 1
+        androidVersionName = "0.20161115"
+
+        testApplicationId = 'xyz.gonzapico.cabify.test'
+    }
+
+}

@@ -1,0 +1,29 @@
+{
+  "stops": [
+    {
+      "loc": [
+        40.4169473,
+        -3.7057172
+      ],
+      "name": "Puerta del Sol",
+      "addr": "Plaza de la Puerta del Sol",
+      "num": "s/n",
+      "city": "Madrid",
+      "country": "Spain",
+      "hit_at": "2022-12-30 22:59"
+    },
+    {
+      "loc": [
+        40.4169473,
+        -3.7057172
+      ],
+      "name": "Puerta del Sol",
+      "addr": "Plaza de la Puerta del Sol",
+      "num": "s/n",
+      "city": "Madrid",
+      "country": "Spain",
+      "hit_at": "2022-12-30 22:59"
+    }
+  ],
+  "start_at": "2022-12-30 22:59"
+}
