@@ -28,4 +28,7 @@ public class Utils {
     }
     return currentDateFormatted;
   }
+
+  public final static int PLACE_AUTOCOMPLETE_REQUEST_CODE_START = 1;
+  public final static int PLACE_AUTOCOMPLETE_REQUEST_CODE_END = 2;
 }
