@@ -60,7 +60,7 @@ captures/
 # Keystore files
 *.jks
 
-# External native build folder generated in Android Studio 2.2 and later
+# External native dependencies folder generated in Android Studio 2.2 and later
 .externalNativeBuild
 
 ### Android Patch ###

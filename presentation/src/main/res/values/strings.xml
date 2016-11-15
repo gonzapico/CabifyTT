@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">CabifyTT</string>
+  <string name="app_name">CabifyTT</string>
+  <string name="pick_start">Origen</string>
+  <string name="pick_end">Destino</string>
+  <string name="pick_search">Buscar</string>
+
+  <string name="example_name">Example Name Car</string>
+  <string name="example_description">Example Description</string>
+  <string name="example_price">3.00€</string>
+  <string name="pick_sort">Sort by price</string>
+  <string name="pick_sort_cheap">Asc</string>
+  <string name="pick_sort_expensive">Desc</string>
 </resources>
