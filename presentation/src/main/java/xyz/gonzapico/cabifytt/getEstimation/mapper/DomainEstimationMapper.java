@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import xyz.gonzapico.cabifytt.di.PerActivity;
+import xyz.gonzapico.cabifytt.getEstimation.Utils;
 import xyz.gonzapico.cabifytt.getEstimation.model.EstimateVechicle;
-import xyz.gonzapico.cabifytt.getEstimation.model.Location;
 import xyz.gonzapico.cabifytt.getEstimation.model.RequestStops;
 import xyz.gonzapico.cabifytt.getEstimation.model.Stop;
 import xyz.gonzapico.domain.model.DomainModelBodyRequestStops;
 import xyz.gonzapico.domain.model.DomainModelEstimateVehicle;
-import xyz.gonzapico.domain.model.DomainModelLocation;
 import xyz.gonzapico.domain.model.DomainModelStop;
 import xyz.gonzapico.domain.model.DomainVehicleType;
 
@@ -20,7 +19,7 @@ import xyz.gonzapico.domain.model.DomainVehicleType;
 
 @PerActivity public class DomainEstimationMapper {
 
-  @Inject public DomainEstimationMapper(){
+  @Inject public DomainEstimationMapper() {
 
   }
 
@@ -70,7 +69,7 @@ import xyz.gonzapico.domain.model.DomainVehicleType;
   public DomainModelBodyRequestStops trasnformToBodyRequest(RequestStops stopsRequested) {
     DomainModelBodyRequestStops domainModelBodyRequestStops = new DomainModelBodyRequestStops();
 
-    domainModelBodyRequestStops.setStartAt(stopsRequested.getStartAt());
+    domainModelBodyRequestStops.setStartAt(Utils.currentDateFormatted());
     domainModelBodyRequestStops.setStops(transformStops(stopsRequested.getStops()));
 
     return domainModelBodyRequestStops;
@@ -79,7 +78,7 @@ import xyz.gonzapico.domain.model.DomainVehicleType;
   private List<DomainModelStop> transformStops(List<Stop> stops) {
     List<DomainModelStop> resultListOfStops = new ArrayList<>();
 
-    for (Stop stop : stops){
+    for (Stop stop : stops) {
       resultListOfStops.add(transformStop(stop));
     }
 
