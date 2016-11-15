@@ -16,6 +16,8 @@
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:focusable="true"
+      android:focusableInTouchMode="true"
       android:orientation="horizontal">
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -40,22 +42,39 @@
   </LinearLayout>
 
   <Button
-      android:layout_gravity="right"
-      android:id="@+id/btSearch" android:layout_width="wrap_content"
-      android:layout_height="wrap_content" android:text="@string/pick_search"/>
+      android:id="@+id/btSearch"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+      android:layout_gravity="right" android:text="@string/pick_search"/>
 
-  <Button
-      android:layout_gravity="center"
-      android:visibility="gone"
-      android:id="@+id/btSort" android:layout_width="wrap_content"
-      android:layout_height="wrap_content" android:text="Ordenar"/>
+  <LinearLayout
+      android:id="@+id/llSort"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal" android:visibility="gone">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="@string/pick_sort"/>
+    <Button
+        android:id="@+id/btSortCheap"
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp" android:background="@color/colorPrimaryDark"
+        android:text="@string/pick_sort_cheap"/>
 
+    <Button
+        android:layout_gravity="right"
+        android:id="@+id/btSortExpensive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp" android:background="@color/colorPrimary"
+        android:text="@string/pick_sort_expensive"/>
+  </LinearLayout>
   <ProgressBar
       android:id="@+id/pbLoading"
-      style="@android:style/Widget.ProgressBar.Large"
-      android:visibility="gone"
-      android:layout_width="wrap_content" android:layout_height="wrap_content"
-      android:layout_gravity="center"/>
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center" android:visibility="gone"
+      style="@android:style/Widget.ProgressBar.Large"/>
 
   <android.support.v7.widget.RecyclerView
       android:id="@+id/rvEstimateVehicles"
